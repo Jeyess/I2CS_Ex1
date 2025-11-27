@@ -25,8 +25,8 @@ public class Ex1
 	/**
 	 * Computes the f(x) value of the polynomial function at x.
 	 *
-	 * @param poly - polynomial function
-	 * @param x
+	 * @param poly 	- polynomial function
+	 * @param x 	- x position
 	 * @return f(x) - the polynomial function value at x.
 	 */
 	public static double f(double[] poly, double x)
@@ -76,8 +76,8 @@ public class Ex1
 	 * The solution is based on: //	http://stackoverflow.com/questions/717762/how-to-calculate-the-vertex-of-a-parabola-given-three-points
 	 * Note: this function only works for a set of points containing up to 3 points, else returns null.
 	 *
-	 * @param xx
-	 * @param yy
+	 * @param xx - x positions array
+	 * @param yy - y positions array
 	 * @return an array of doubles representing the coefficients of the polynom.
 	 */
 	public static double[] polynomFromPoints(double[] xx, double[] yy)
@@ -98,8 +98,8 @@ public class Ex1
 	 * Two polynomials functions are equal if and only if they have the same values f(x) for n+1 values of x,
 	 * where n is the max degree (over p1, p2) - up to an epsilon (aka EPS) value.
 	 *
-	 * @param p1 first polynomial function
-	 * @param p2 second polynomial function
+	 * @param p1 - first polynomial function
+	 * @param p2 - second polynomial function
 	 * @return true iff p1 represents the same polynomial function as p2.
 	 */
 	public static boolean equals(double[] p1, double[] p2)
@@ -115,7 +115,7 @@ public class Ex1
 	 * Computes a String representing the polynomial function.
 	 * For example the array {2,0,3.1,-1.2} will be presented as the following String  "-1.2x^3 +3.1x^2 +2.0"
 	 *
-	 * @param poly the polynomial function represented as an array of doubles
+	 * @param poly - the polynomial function represented as an array of doubles
 	 * @return String representing the polynomial function:
 	 */
 	public static String poly(double[] poly)
@@ -203,7 +203,7 @@ public class Ex1
 	 * getPolynomFromString(poly(p)) should return an array equals to p.
 	 *
 	 * @param p - a String representing polynomial function.
-	 * @return
+	 * //@return
 	 */
 	public static double[] getPolynomFromString(String p)
 	{
@@ -217,9 +217,9 @@ public class Ex1
 	/**
 	 * This function computes the polynomial function which is the sum of two polynomial functions (p1,p2)
 	 *
-	 * @param p1
-	 * @param p2
-	 * @return
+	 * @param p1 - first polynom
+	 * @param p2 - second polynom
+	 * //@return
 	 */
 	public static double[] add(double[] p1, double[] p2)
 	{
@@ -233,9 +233,9 @@ public class Ex1
 	/**
 	 * This function computes the polynomial function which is the multiplication of two polynoms (p1,p2)
 	 *
-	 * @param p1
-	 * @param p2
-	 * @return
+	 * @param p1 - first polynom
+	 * @param p2 - second polynom
+	 * //@return
 	 */
 	public static double[] mul(double[] p1, double[] p2)
 	{
@@ -249,8 +249,8 @@ public class Ex1
 	/**
 	 * This function computes the derivative of the p0 polynomial function.
 	 *
-	 * @param po
-	 * @return
+	 * @param po - polynom to derive
+	 * //@return
 	 */
 	public static double[] derivative(double[] po)
 	{

@@ -28,6 +28,8 @@ public class Ex1
 	 * @param poly 	- polynomial function
 	 * @param x 	- x position
 	 * @return f(x) - the polynomial function value at x.
+	 *
+	 * Test Link {@link Ex1Test#testF()}
 	 */
 	public static double f(double[] poly, double x)
 	{
@@ -51,6 +53,8 @@ public class Ex1
 	 * @param x2  - maximal value of the range
 	 * @param eps - epsilon (positive small value (often 10^-3, or 10^-6).
 	 * @return an x value (x1<=x<=x2) for which |p(x)| < eps.
+	 *
+	 * Test Link {@link Ex1Test}
 	 */
 	public static double root_rec(double[] p, double x1, double x2, double eps)
 	{
@@ -79,6 +83,8 @@ public class Ex1
 	 * @param xx - x positions array
 	 * @param yy - y positions array
 	 * @return an array of doubles representing the coefficients of the polynom.
+	 *
+	 * Test Link {@link Ex1Test}
 	 */
 	public static double[] polynomFromPoints(double[] xx, double[] yy)
 	{
@@ -101,6 +107,8 @@ public class Ex1
 	 * @param p1 - first polynomial function
 	 * @param p2 - second polynomial function
 	 * @return true iff p1 represents the same polynomial function as p2.
+	 *
+	 * Test Link {@link Ex1Test#testEquals()}
 	 */
 	public static boolean equals(double[] p1, double[] p2)
 	{
@@ -117,6 +125,8 @@ public class Ex1
 	 *
 	 * @param poly - the polynomial function represented as an array of doubles
 	 * @return String representing the polynomial function:
+	 *
+	 * Test Link {@link Ex1Test}
 	 */
 	public static String poly(double[] poly)
 	{
@@ -144,6 +154,8 @@ public class Ex1
 	 * @param x2  - maximal value of the range
 	 * @param eps - epsilon (positive small value (often 10^-3, or 10^-6).
 	 * @return an x value (x1<=x<=x2) for which |p1(x) - p2(x)| < eps.
+	 *
+	 * Test Link {@link Ex1Test#testSameValue2()}
 	 */
 	public static double sameValue(double[] p1, double[] p2, double x1, double x2, double eps)
 	{
@@ -166,6 +178,8 @@ public class Ex1
 	 * @param x2               - maximal value of the range
 	 * @param numberOfSegments - (A positive integer value (1,2,...).
 	 * @return the length approximation of the function between f(x1) and f(x2).
+	 *
+	 * Test Link {@link Ex1Test}
 	 */
 	public static double length(double[] p, double x1, double x2, int numberOfSegments)
 	{
@@ -187,6 +201,8 @@ public class Ex1
 	 * @param x2                - maximal value of the range
 	 * @param numberOfTrapezoid - a natural number representing the number of Trapezoids between x1 and x2.
 	 * @return the approximated area between the two polynomial functions within the [x1,x2] range.
+	 *
+	 * Test Link {@link Ex1Test#testArea()}
 	 */
 	public static double area(double[] p1, double[] p2, double x1, double x2, int numberOfTrapezoid)
 	{
@@ -203,7 +219,9 @@ public class Ex1
 	 * getPolynomFromString(poly(p)) should return an array equals to p.
 	 *
 	 * @param p - a String representing polynomial function.
-	 * //@return
+	 * @return
+	 *
+	 * Test Link {@link Ex1Test#testFromString()}
 	 */
 	public static double[] getPolynomFromString(String p)
 	{
@@ -219,7 +237,9 @@ public class Ex1
 	 *
 	 * @param p1 - first polynom
 	 * @param p2 - second polynom
-	 * //@return
+	 * @return
+	 *
+	 * Test Link {@link Ex1Test#testAdd()}
 	 */
 	public static double[] add(double[] p1, double[] p2)
 	{
@@ -235,7 +255,9 @@ public class Ex1
 	 *
 	 * @param p1 - first polynom
 	 * @param p2 - second polynom
-	 * //@return
+	 * @return
+	 *
+	 * Test Link {@link Ex1Test#testMul1()}
 	 */
 	public static double[] mul(double[] p1, double[] p2)
 	{
@@ -250,7 +272,9 @@ public class Ex1
 	 * This function computes the derivative of the p0 polynomial function.
 	 *
 	 * @param po - polynom to derive
-	 * //@return
+	 * @return
+	 *
+	 * Test Link {@link Ex1Test#testDerivativeArrayDoubleArray()}
 	 */
 	public static double[] derivative(double[] po)
 	{

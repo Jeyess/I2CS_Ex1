@@ -42,6 +42,7 @@ public class Ex1
 		return ans;
 	}
 
+
 	/**
 	 * Given a polynomial function (p), a range [x1,x2] and an epsilon eps.
 	 * This function computes an x value (x1<=x<=x2) for which |p(x)| < eps,
@@ -75,6 +76,7 @@ public class Ex1
 		}
 	}
 
+
 	/**
 	 * This function computes a polynomial representation from a set of 2D points on the polynom.
 	 * The solution is based on: //	http://stackoverflow.com/questions/717762/how-to-calculate-the-vertex-of-a-parabola-given-three-points
@@ -100,6 +102,7 @@ public class Ex1
 		return ans;
 	}
 
+
 	/**
 	 * Two polynomials functions are equal if and only if they have the same values f(x) for n+1 values of x,
 	 * where n is the max degree (over p1, p2) - up to an epsilon (aka EPS) value.
@@ -118,6 +121,7 @@ public class Ex1
 		 /////////////////// */
 		return ans;
 	}
+
 
 	/**
 	 * Computes a String representing the polynomial function.
@@ -144,6 +148,7 @@ public class Ex1
 		return ans;
 	}
 
+
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an epsilon eps. This function computes an x value (x1<=x<=x2)
 	 * for which |p1(x) -p2(x)| < eps, assuming (p1(x1)-p2(x1)) * (p1(x2)-p2(x2)) <= 0.
@@ -165,6 +170,7 @@ public class Ex1
 		 /////////////////// */
 		return ans;
 	}
+
 
 	/**
 	 * Given a polynomial function (p), a range [x1,x2] and an integer with the number (n) of sample points.
@@ -190,6 +196,7 @@ public class Ex1
 		return ans;
 	}
 
+
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an integer representing the number of Trapezoids between the functions (number of samples in on each polynom).
 	 * This function computes an approximation of the area between the polynomial functions within the x-range.
@@ -213,6 +220,7 @@ public class Ex1
 		return ans;
 	}
 
+
 	/**
 	 * This function computes the array representation of a polynomial function from a String
 	 * representation. Note:given a polynomial function represented as a double array,
@@ -232,6 +240,7 @@ public class Ex1
 		return ans;
 	}
 
+
 	/**
 	 * This function computes the polynomial function which is the sum of two polynomial functions (p1,p2)
 	 *
@@ -250,6 +259,7 @@ public class Ex1
 		return ans;
 	}
 
+
 	/**
 	 * This function computes the polynomial function which is the multiplication of two polynoms (p1,p2)
 	 *
@@ -267,6 +277,7 @@ public class Ex1
 		 /////////////////// */
 		return ans;
 	}
+	
 
 	/**
 	 * This function computes the derivative of the p0 polynomial function.

@@ -56,12 +56,15 @@ class Ex1Test
 	}
 	//</editor-fold>
 
+
 	//<editor-fold desc="root_rec Tests MT">
 	//</editor-fold>
+
 
 	//<editor-fold desc="polynomFromPoints Tests MT">
 
 	//</editor-fold>
+
 
 	//<editor-fold desc="equals Tests">
 	@Test
@@ -84,8 +87,10 @@ class Ex1Test
 	}
 	//</editor-fold>
 
+
 	//<editor-fold desc="poly Tests MT">
 	//</editor-fold>
+
 
 	//<editor-fold desc="sameValue Tests">
 	@Test
@@ -101,8 +106,10 @@ class Ex1Test
 	}
 	//</editor-fold>
 
+
 	//<editor-fold desc="length Tests MT">
 	//</editor-fold>
+
 
 	//<editor-fold desc="area Tests">
 	@Test
@@ -153,6 +160,7 @@ class Ex1Test
 	}
 	//</editor-fold>
 
+
 	//<editor-fold desc="getPolynomFromString Tests">
 	@Test
 	/**
@@ -178,6 +186,7 @@ class Ex1Test
 		assertEquals(sp, Ex1.poly(p1));
 	}
 	//</editor-fold>
+
 
 	//<editor-fold desc="add Tests">
 	@Test
@@ -214,6 +223,7 @@ class Ex1Test
 		assertTrue(Ex1.equals(p1, po1));
 	}
 	//</editor-fold>
+
 
 	//<editor-fold desc="mul Tests">
 	@Test
@@ -255,6 +265,7 @@ class Ex1Test
 		}
 	}
 	//</editor-fold>
+
 
 	//<editor-fold desc="derivative Tests">
 	@Test

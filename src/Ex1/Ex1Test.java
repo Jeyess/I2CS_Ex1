@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * Note: you should add additional JUnit testing functions to this class.
  *
  * @author boaz.ben-moshe
- *
- *
+ * <p>
+ * <p>
  * PS: the tests were reordered by their order of apperence in Ex1
  */
 
@@ -157,6 +157,22 @@ class Ex1Test
 		double a1 = Ex1.area(po_a, po_b, x1, 6, 8);
 		double area = 58.5658;
 		assertEquals(a1, area, Ex1.EPS);
+	}
+	//</editor-fold>
+
+
+	//<editor-fold desc="whitespaceRemover Tests">
+	@Test
+	/**
+	 * Tests the removal of whitespaces from a string.
+	 */
+	public void testRemoveWhitespaces()
+	{
+		String startingString = " bob \n rob\n1asdasd \n ", correctAns = "bobrob1asdasd";
+		if (!Ex1.whitespaceRemover(startingString).equals(correctAns))
+		{
+			fail();
+		}
 	}
 	//</editor-fold>
 

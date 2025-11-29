@@ -1,5 +1,10 @@
 package Ex1;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.*;
+
 /**
  * Introduction to Computer Science 2026, Ariel University,
  * Ex1: arrays, static functions and JUnit
@@ -22,13 +27,20 @@ public class Ex1
 	 */
 	public static final double[] ZERO = {0};
 
+
+	public static void pl(String text)
+	{
+		IO.println(text);
+	}
+
+
 	/**
 	 * Computes the f(x) value of the polynomial function at x.
 	 *
-	 * @param poly 	- polynomial function
-	 * @param x 	- x position
+	 * @param poly - polynomial function
+	 * @param x    - x position
 	 * @return f(x) - the polynomial function value at x.
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test#testF()}
 	 */
 	public static double f(double[] poly, double x)
@@ -54,7 +66,7 @@ public class Ex1
 	 * @param x2  - maximal value of the range
 	 * @param eps - epsilon (positive small value (often 10^-3, or 10^-6).
 	 * @return an x value (x1<=x<=x2) for which |p(x)| < eps.
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test}
 	 */
 	public static double root_rec(double[] p, double x1, double x2, double eps)
@@ -85,7 +97,7 @@ public class Ex1
 	 * @param xx - x positions array
 	 * @param yy - y positions array
 	 * @return an array of doubles representing the coefficients of the polynom.
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test}
 	 */
 	public static double[] polynomFromPoints(double[] xx, double[] yy)
@@ -110,7 +122,7 @@ public class Ex1
 	 * @param p1 - first polynomial function
 	 * @param p2 - second polynomial function
 	 * @return true iff p1 represents the same polynomial function as p2.
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test#testEquals()}
 	 */
 	public static boolean equals(double[] p1, double[] p2)
@@ -129,7 +141,7 @@ public class Ex1
 	 *
 	 * @param poly - the polynomial function represented as an array of doubles
 	 * @return String representing the polynomial function:
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test}
 	 */
 	public static String poly(double[] poly)
@@ -159,7 +171,7 @@ public class Ex1
 	 * @param x2  - maximal value of the range
 	 * @param eps - epsilon (positive small value (often 10^-3, or 10^-6).
 	 * @return an x value (x1<=x<=x2) for which |p1(x) - p2(x)| < eps.
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test#testSameValue2()}
 	 */
 	public static double sameValue(double[] p1, double[] p2, double x1, double x2, double eps)
@@ -184,7 +196,7 @@ public class Ex1
 	 * @param x2               - maximal value of the range
 	 * @param numberOfSegments - (A positive integer value (1,2,...).
 	 * @return the length approximation of the function between f(x1) and f(x2).
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test}
 	 */
 	public static double length(double[] p, double x1, double x2, int numberOfSegments)
@@ -208,7 +220,7 @@ public class Ex1
 	 * @param x2                - maximal value of the range
 	 * @param numberOfTrapezoid - a natural number representing the number of Trapezoids between x1 and x2.
 	 * @return the approximated area between the two polynomial functions within the [x1,x2] range.
-	 *
+	 * <p>
 	 * Test Link {@link Ex1Test#testArea()}
 	 */
 	public static double area(double[] p1, double[] p2, double x1, double x2, int numberOfTrapezoid)
@@ -222,8 +234,78 @@ public class Ex1
 
 
 	/**
+	 * This function takes a string and removes all whitespaces from it.
+	 * Input: 	a bc\nd		(\n is a newline)
+	 * Result: 	abcd
+	 *
+	 * @param p - a String.
+	 * @return  - a String without whitespaces.
+	 *
+	 * Test Link {@link Ex1Test#testRemoveWhitespaces()}
+	 */
+	public static String whitespaceRemover(String p)
+	{
+		return p.replaceAll("\\s", "");
+	}
+
+
+	/**
+	 * This function takes a mathematical expression and expands it as much as possible.
+	 * Input:	x^3 + 3(x+2)
+	 * Result: 	x^3+3x+6
+	 * And then parses the expression, adds "missing" values and converts it into an array.
+	 * Output: {"1x^3", "0x^2", "3x", "+6"}
+	 *
+	 * @param p - a String representing a function with brackets.
+	 * @return 	- a parsed String array.
+	 *
+	 * Test Link {@link Ex1Test#testFromString()}
+	 */
+	public static String[] expressionOrganizer(String p)
+	{
+		String updatedString = p;
+
+		//finds x chars without ^ to their right and then adds ^1 to them
+		Pattern pat = Pattern.compile("x(?!\\^)", Pattern.CASE_INSENSITIVE);
+		Matcher mat = pat.matcher(updatedString);
+		if (mat.find())
+		{
+			updatedString = updatedString.substring(0, mat.end()) + "^1" + updatedString.substring(mat.end());
+		}
+
+		//finds x chars without a value before them (i.e. multiplied by 1) and adds one before them
+		pat = Pattern.compile("(?<!\\d)x", Pattern.CASE_INSENSITIVE);
+		for (int i = 0; true;)
+		{
+			mat = pat.matcher(updatedString);
+			if(mat.find())
+			{
+				updatedString = updatedString.substring(0, mat.start()) + "1" + updatedString.substring(mat.start());
+				i++;
+				continue;
+			}
+			break;
+		}
+
+		pl(updatedString);
+
+		//parses the String based on '-' and '+' chars (first char included) into a String list
+		pat = Pattern.compile("(.|[+-]).*?(?=[+-]|$)");
+		mat = pat.matcher(updatedString);
+		List<String> results = new ArrayList<>();
+
+		while (mat.find())
+		{
+			results.add(mat.group());
+		}
+
+		return results.toArray(new String[0]);
+	}
+
+
+	/**
 	 * This function computes the array representation of a polynomial function from a String
-	 * representation. Note:given a polynomial function represented as a double array,
+	 * representation. Note: given a polynomial function represented as a double array,
 	 * getPolynomFromString(poly(p)) should return an array equals to p.
 	 *
 	 * @param p - a String representing polynomial function.
@@ -234,9 +316,36 @@ public class Ex1
 	public static double[] getPolynomFromString(String p)
 	{
 		double[] ans = ZERO;//  -1.0x^2 +3.0x +2.0
-		/** add you code below
 
-		 /////////////////// */
+		pl(p);
+		String fixed = whitespaceRemover(p);
+		pl(fixed);
+
+		String[] fixedArr = expressionOrganizer(fixed);
+		pl(Arrays.toString(fixedArr));
+
+		int fixedLength = fixedArr.length;
+		ans = new double[fixedLength];
+
+
+
+		//.+?(?=x)
+		Pattern pat = Pattern.compile(".+?(?=x)", Pattern.CASE_INSENSITIVE);
+		Matcher mat;
+
+		for (int i = 0; i < fixedLength; i++)
+		{
+			mat = pat.matcher(fixedArr[i]);
+			mat.find();
+			pl(mat.lookingAt() + " " + fixedArr[i]);
+			if (mat.lookingAt())
+			{
+				ans[fixedLength - 1 - i] = Double.parseDouble(mat.group(0));
+				continue;
+			}
+			ans[fixedLength - 1 - i] = Double.parseDouble(fixedArr[i]);
+		}
+
 		return ans;
 	}
 
@@ -246,9 +355,7 @@ public class Ex1
 	 *
 	 * @param p1 - first polynom
 	 * @param p2 - second polynom
-	 * @return
-	 *
-	 * Test Link {@link Ex1Test#testAdd()}
+	 * @return Test Link {@link Ex1Test#testAdd()}
 	 */
 	public static double[] add(double[] p1, double[] p2)
 	{
@@ -265,9 +372,7 @@ public class Ex1
 	 *
 	 * @param p1 - first polynom
 	 * @param p2 - second polynom
-	 * @return
-	 *
-	 * Test Link {@link Ex1Test#testMul1()}
+	 * @return Test Link {@link Ex1Test#testMul1()}
 	 */
 	public static double[] mul(double[] p1, double[] p2)
 	{
@@ -277,15 +382,13 @@ public class Ex1
 		 /////////////////// */
 		return ans;
 	}
-	
+
 
 	/**
 	 * This function computes the derivative of the p0 polynomial function.
 	 *
 	 * @param po - polynom to derive
-	 * @return
-	 *
-	 * Test Link {@link Ex1Test#testDerivativeArrayDoubleArray()}
+	 * @return Test Link {@link Ex1Test#testDerivativeArrayDoubleArray()}
 	 */
 	public static double[] derivative(double[] po)
 	{

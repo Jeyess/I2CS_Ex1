@@ -11,8 +11,16 @@ public class Sandbox
 //		IO.println(testString);
 //		IO.println(Ex1.whitespaceRemover(testString));
 
-		String test = "X^2+x -1.1";
+		String test = "X^4+3x -1.1";
 		double[] data = Ex1.getPolynomFromString(test);
+
+		String test2 = "5X^4+4x^2+69.3";
+		double[] data2 = Ex1.getPolynomFromString(test2);
+
 		IO.println(Arrays.toString(data));
+		IO.println(Arrays.toString(data2));
+
+		double[] result = Ex1.add(data, data2);
+		IO.println(Arrays.toString(result));
 	}
 }

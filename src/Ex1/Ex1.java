@@ -1,9 +1,9 @@
 package Ex1;
 
-import java.util.ArrayList;
+
 import java.util.Arrays;
-import java.util.List;
 import java.util.regex.*;
+
 
 /**
  * Introduction to Computer Science 2026, Ariel University,
@@ -28,6 +28,9 @@ public class Ex1
 	public static final double[] ZERO = {0};
 
 
+	/**
+	 * Provides a simpler way to print lines, for debugging purposes.
+	 */
 	public static void pl(String text)
 	{
 		IO.println(text);
@@ -121,7 +124,7 @@ public class Ex1
 	 *
 	 * @param p1 - first polynomial function
 	 * @param p2 - second polynomial function
-	 * @return true iff p1 represents the same polynomial function as p2.
+	 * @return true if p1 represents the same polynomial function as p2.
 	 * <p>
 	 * Test Link {@link Ex1Test#testEquals()}
 	 */
@@ -233,6 +236,8 @@ public class Ex1
 	}
 
 
+	//<editor-fold desc="PolyFromString and related functions">
+
 	/**
 	 * This function takes a string and removes all whitespaces from it.
 	 * Input: 	a bc\nd		(\n is a newline)
@@ -240,8 +245,6 @@ public class Ex1
 	 *
 	 * @param p - a String.
 	 * @return  - a String without whitespaces.
-	 *
-	 * Test Link {@link Ex1Test#testRemoveWhitespaces()}
 	 */
 	public static String whitespaceRemover(String p)
 	{
@@ -375,6 +378,8 @@ public class Ex1
 		return ans;
 	}
 
+	//</editor-fold>
+
 
 	/**
 	 * This function computes the polynomial function which is the sum of two polynomial functions (p1,p2)
@@ -386,9 +391,20 @@ public class Ex1
 	public static double[] add(double[] p1, double[] p2)
 	{
 		double[] ans = ZERO;//
-		/** add you code below
+		if (p1.length > p2.length)
+		{
+			ans = p1;
+		}
+		else
+		{
+			ans = p2;
+		}
 
-		 /////////////////// */
+		for (int i = 0; i < ans.length; i++)
+		{
+			ans[i] = p1[i] + p2[i];
+		}
+
 		return ans;
 	}
 

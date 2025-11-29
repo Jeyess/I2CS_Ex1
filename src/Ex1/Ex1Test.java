@@ -179,6 +179,10 @@ class Ex1Test
 	//</editor-fold>
 
 
+	//<editor-fold desc="expressionOrganizer Tests MT">
+	//</editor-fold>
+
+
 	//<editor-fold desc="getPolynomFromString Tests">
 	@Test
 	/**
@@ -187,7 +191,7 @@ class Ex1Test
 	 */
 	public void testFromString2()
 	{
-		String test = "X^2 -1.1";
+		String test = "X^4 -1.1";
 		double[] data = Ex1.getPolynomFromString(test);
 		IO.println(Arrays.toString(data));
 	}

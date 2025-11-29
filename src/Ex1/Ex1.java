@@ -18,6 +18,7 @@ import java.util.regex.*;
  */
 public class Ex1
 {
+	//<editor-fold desc="Initial functions">
 	/**
 	 * Epsilon value for numerical computation, it serves as a "close enough" threshold.
 	 */
@@ -90,8 +91,11 @@ public class Ex1
 			return root_rec(p, x12, x2, eps);
 		}
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="polynomFromPoints NC!">
+	//TODO: fix the deviations resulting from double operations
 	/**
 	 * This function computes a polynomial representation from a set of 2D points on the polynom.
 	 * The solution is based on: //	http://stackoverflow.com/questions/717762/how-to-calculate-the-vertex-of-a-parabola-given-three-points
@@ -102,22 +106,41 @@ public class Ex1
 	 * @return an array of doubles representing the coefficients of the polynom.
 	 * <p>
 	 * Test Link {@link Ex1Test}
+	 *
+	 * 	   double denom = (x1 - x2) * (x1 - xx[2]) * (x2 - xx[2]);
+	 *     double A     = (xx[2] * (yy[1] - yy[0]) + x2 * (yy[0] - yy[2]) + x1 * (yy[2] - yy[1])) / denom;
+	 *     double B     = (xx[2]*xx[2] * (yy[0] - yy[1]) + x2*x2 * (yy[2] - yy[0]) + x1*x1 * (yy[1] - yy[2])) / denom;
+	 *     double C     = (x2 * xx[2] * (x2 - xx[2]) * yy[0] + xx[2] * x1 * (xx[2] - x1) * yy[1] + x1 * x2 * (x1 - x2) * yy[2]) / denom;
+	 *
 	 */
 	public static double[] polynomFromPoints(double[] xx, double[] yy)
 	{
 		double[] ans = null;
 		int lx = xx.length;
 		int ly = yy.length;
-		if (xx != null && yy != null && lx == ly && lx > 1 && lx < 4)
+		if (xx != null && yy != null && lx == ly)
 		{
-			/** add you code below
-
-			 /////////////////// */
+			if (lx == 2)
+			{
+				double A = (yy[1] - yy[0]) / (xx[1] - xx[0]);
+				double B = yy[0] - A * xx[0];
+				ans = new double[]{B, A};
+			}
+			else
+			{
+				double denom = (xx[0] - xx[1]) * (xx[0] - xx[2]) * (xx[1] - xx[2]);
+	      		double A     = (xx[2] * (yy[1] - yy[0]) + xx[1] * (yy[0] - yy[2]) + xx[0] * (yy[2] - yy[1])) / denom;
+	     		double B     = (xx[2] * xx[2] * (yy[0] - yy[1]) + xx[1] * xx[1] * (yy[2] - yy[0]) + xx[0] * xx[0] * (yy[1] - yy[2])) / denom;
+	     		double C     = (xx[1] * xx[2] * (xx[1] - xx[2]) * yy[0] + xx[2] * xx[0] * (xx[2] - xx[0]) * yy[1] + xx[0] * xx[1] * (xx[0] - xx[1]) * yy[2]) / denom;
+				ans = new double[]{C, B, A};
+			}
 		}
 		return ans;
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="equals">
 	/**
 	 * Two polynomials functions are equal if and only if they have the same values f(x) for n+1 values of x,
 	 * where n is the max degree (over p1, p2) - up to an epsilon (aka EPS) value.
@@ -131,13 +154,29 @@ public class Ex1
 	public static boolean equals(double[] p1, double[] p2)
 	{
 		boolean ans = true;
-		/** add you code below
+		int highestLength = 0;
+		if (p1.length > p2.length)
+		{
+			highestLength = p1.length;
+		}
+		else
+		{
+			highestLength = p2.length;
+		}
 
-		 /////////////////// */
+		for (int i = 0; i < highestLength; i++)
+		{
+			if (Math.abs(f(p1, i) - f(p2, i)) > EPS)
+			{
+				return false;
+			}
+		}
 		return ans;
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="poly">
 	/**
 	 * Computes a String representing the polynomial function.
 	 * For example the array {2,0,3.1,-1.2} will be presented as the following String  "-1.2x^3 +3.1x^2 +2.0"
@@ -156,14 +195,32 @@ public class Ex1
 		}
 		else
 		{
-			/** add you code below
+			for (int i = poly.length - 1; i > 1; i--)
+			{
+				ans = ans + poly[i] + "x^" + i;
+				if (poly[i - 1] > 0)
+				{
+					ans += "+";
+				}
+			}
 
-			 /////////////////// */
+			/*
+			  The following code is for the 2 last components, which the x wouldn't have the power sign (it can but not typically done)
+			  and the last value which doesn't contain an x sign at all
+			 */
+			ans = ans + poly[1] + "x";
+			if (poly[0] > 0)
+			{
+				ans += "+";
+			}
+			ans = ans + poly[0];
 		}
 		return ans;
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="sameValue">
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an epsilon eps. This function computes an x value (x1<=x<=x2)
 	 * for which |p1(x) -p2(x)| < eps, assuming (p1(x1)-p2(x1)) * (p1(x2)-p2(x2)) <= 0.
@@ -185,8 +242,10 @@ public class Ex1
 		 /////////////////// */
 		return ans;
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="length">
 	/**
 	 * Given a polynomial function (p), a range [x1,x2] and an integer with the number (n) of sample points.
 	 * This function computes an approximation of the length of the function between f(x1) and f(x2)
@@ -204,14 +263,21 @@ public class Ex1
 	 */
 	public static double length(double[] p, double x1, double x2, int numberOfSegments)
 	{
-		double ans = x1;
-		/** add you code below
+		double ans = 0.0;
+		double segmentLength = (x2 - x1) / numberOfSegments;
+		//EPS is required because of double operation deviations
+		for (double i = x1; i < x2 - EPS; i += segmentLength)
+		{
+			pl("i: "+ i);
+			ans += Math.sqrt(Math.pow(f(p, i + segmentLength) - f(p, i), 2) + Math.pow(segmentLength, 2));
+		}
 
-		 /////////////////// */
 		return ans;
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="area">
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an integer representing the number of Trapezoids between the functions (number of samples in on each polynom).
 	 * This function computes an approximation of the area between the polynomial functions within the x-range.
@@ -234,6 +300,7 @@ public class Ex1
 		 /////////////////// */
 		return ans;
 	}
+	//</editor-fold>
 
 
 	//<editor-fold desc="PolyFromString and related functions">
@@ -419,10 +486,14 @@ public class Ex1
 	 */
 	public static double[] mul(double[] p1, double[] p2)
 	{
-		double[] ans = ZERO;//
-		/** add you code below
+		int newArrLength = p1.length + p2.length - 1;
+		double[] ans = new double[newArrLength];
+		while (true)
+		{
+			break;
+		}
 
-		 /////////////////// */
+		ans = ZERO;//
 		return ans;
 	}
 	//</editor-fold>

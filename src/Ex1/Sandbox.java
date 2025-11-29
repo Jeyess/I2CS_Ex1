@@ -21,17 +21,24 @@ public class Sandbox
 		double[] data = Ex1.getPolynomFromString(test);
 		IO.println("gPFS : " + Arrays.toString(data));
 
-		String polyed = Ex1.poly(data);
-		IO.println("poly: " + polyed);
+		String test2 = "2.3x -1.1";
+		double[] data2 = Ex1.getPolynomFromString(test2);
+		IO.println("gPFS : " + Arrays.toString(data2));
 
-		double[] xs = new double[]{-1.07272, -0.37097, 0.33078};
-		double[] ys = new double[]{0, -1.52661, 0};
-		double[] result = Ex1.polynomFromPoints(xs, ys);
-		IO.println(Arrays.toString(result));
+		IO.println("mul : " + Arrays.toString(Ex1.mul(data, data2)));
 
-		IO.println(Ex1.equals(result, data));
 
-		IO.println(Ex1.length(data, -1, 3, 100));
+//		String polyed = Ex1.poly(data);
+//		IO.println("poly: " + polyed);
+//
+//		double[] xs = new double[]{-1.07272, -0.37097, 0.33078};
+//		double[] ys = new double[]{0, -1.52661, 0};
+//		double[] result = Ex1.polynomFromPoints(xs, ys);
+//		IO.println(Arrays.toString(result));
+//
+//		IO.println(Ex1.equals(result, data));
+//
+//		IO.println(Ex1.length(data, -1, 3, 100));
 
 
 

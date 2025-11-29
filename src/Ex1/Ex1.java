@@ -413,12 +413,12 @@ public class Ex1
 	{
 		double[] ans = ZERO;//  -1.0x^2 +3.0x +2.0
 
-		pl(p);
+		//pl(p);
 		String fixed = whitespaceRemover(p);
-		pl(fixed);
+		//pl(fixed);
 
 		String[] fixedArr = expressionOrganizer(fixed);
-		pl(Arrays.toString(fixedArr));
+		//pl(Arrays.toString(fixedArr));
 
 		int fixedLength = fixedArr.length;
 		ans = new double[fixedLength];
@@ -432,7 +432,7 @@ public class Ex1
 		{
 			mat = pat.matcher(fixedArr[i]);
 			mat.find();
-			pl(mat.lookingAt() + " " + fixedArr[i]);
+			//pl(mat.lookingAt() + " " + fixedArr[i]);
 			if (mat.lookingAt())
 			{
 				ans[fixedLength - 1 - i] = Double.parseDouble(mat.group(0));
@@ -456,19 +456,25 @@ public class Ex1
 	 */
 	public static double[] add(double[] p1, double[] p2)
 	{
+		//this line is required..., because for some reason p1 or p2 would get changed outside of this functions scope
+		//TODO: figure out how to make this contingency happen without the following line
+		double[] internalP1 = p1.clone(), internalP2 = p2.clone();
 		double[] ans = ZERO;//
-		if (p1.length > p2.length)
+		int smallerPoly = 0;
+		if (internalP1.length > internalP2.length)
 		{
-			ans = p1;
+			ans = internalP1;
+			smallerPoly = internalP2.length;
 		}
 		else
 		{
-			ans = p2;
+			ans = internalP2;
+			smallerPoly = internalP1.length;
 		}
 
-		for (int i = 0; i < ans.length; i++)
+		for (int i = 0; i < smallerPoly; i++)
 		{
-			ans[i] = p1[i] + p2[i];
+			ans[i] = internalP1[i] + internalP2[i];
 		}
 
 		return ans;
@@ -476,7 +482,7 @@ public class Ex1
 	//</editor-fold>
 
 
-	//<editor-fold desc="mul">
+	//<editor-fold desc="mul NC">
 	/**
 	 * This function computes the polynomial function which is the multiplication of two polynoms (p1,p2)
 	 *
@@ -486,14 +492,25 @@ public class Ex1
 	 */
 	public static double[] mul(double[] p1, double[] p2)
 	{
-		int newArrLength = p1.length + p2.length - 1;
-		double[] ans = new double[newArrLength];
-		while (true)
+		double[] ans = ZERO;
+		if (p1.length == 0 || p2.length == 0)
 		{
-			break;
+			return ans;
 		}
 
-		ans = ZERO;//
+		int newArrLength = p1.length + p2.length - 1;
+		ans = new double[newArrLength];
+		for (int i = 0; i < p1.length; i++)
+		{
+			if (p1[i] == 0)
+			{
+				continue;
+			}
+			for (int j = 0; j < p2.length && p2[j] != 0; j++)
+			{
+				ans[i + j] += p1[i] * p2[j];
+			}
+		}
 		return ans;
 	}
 	//</editor-fold>

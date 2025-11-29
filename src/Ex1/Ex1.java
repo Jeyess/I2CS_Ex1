@@ -237,7 +237,6 @@ public class Ex1
 
 
 	//<editor-fold desc="PolyFromString and related functions">
-
 	/**
 	 * This function takes a string and removes all whitespaces from it.
 	 * Input: 	a bc\nd		(\n is a newline)
@@ -377,10 +376,10 @@ public class Ex1
 
 		return ans;
 	}
-
 	//</editor-fold>
 
 
+	//<editor-fold desc="add">
 	/**
 	 * This function computes the polynomial function which is the sum of two polynomial functions (p1,p2)
 	 *
@@ -407,8 +406,10 @@ public class Ex1
 
 		return ans;
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="mul">
 	/**
 	 * This function computes the polynomial function which is the multiplication of two polynoms (p1,p2)
 	 *
@@ -424,8 +425,10 @@ public class Ex1
 		 /////////////////// */
 		return ans;
 	}
+	//</editor-fold>
 
 
+	//<editor-fold desc="derivative">
 	/**
 	 * This function computes the derivative of the p0 polynomial function.
 	 *
@@ -434,10 +437,22 @@ public class Ex1
 	 */
 	public static double[] derivative(double[] po)
 	{
-		double[] ans = ZERO;//
-		/** add you code below
+		double[] ans;
+		//one would indicate that there are no x's present, thus the derivative is 0
+		if (po.length > 1)
+		{
+			ans = new double[po.length - 1];
+			pl(Arrays.toString(po));
+			for (int i = 0; i < ans.length; i++)
+			{
+				pl(Arrays.toString(ans));
+				ans[i] = po[i+1] * (i+1);
+			}
+			return ans;
+		}
+		ans = ZERO;
 
-		 /////////////////// */
 		return ans;
 	}
+	//</editor-fold>
 }

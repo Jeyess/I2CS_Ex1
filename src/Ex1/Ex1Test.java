@@ -2,6 +2,8 @@ package Ex1;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -178,6 +180,18 @@ class Ex1Test
 
 
 	//<editor-fold desc="getPolynomFromString Tests">
+	@Test
+	/**
+	 * Tests the parsing of a polynom in a String like form, with missing multipliers and exponents.
+	 * (Looks for errors)
+	 */
+	public void testFromString2()
+	{
+		String test = "X^2 -1.1";
+		double[] data = Ex1.getPolynomFromString(test);
+		IO.println(Arrays.toString(data));
+	}
+
 	@Test
 	/**
 	 * Tests the parsing of a polynom in a String like form.

@@ -250,10 +250,10 @@ public class Ex1
 
 
 	/**
-	 * This function takes a mathematical expression and expands it as much as possible.
+	 * This function takes a mathematical expression and expands it as much as possible (not currently implemented).
 	 * Input:	x^3 + 3(x+2)
 	 * Result: 	x^3+3x+6
-	 * And then parses the expression, adds "missing" values and converts it into an array.
+	 * And then parses the expression, adds missing multipliers/exponents and then converts it into an array.
 	 * Output: {"1x^3", "0x^2", "3x", "+6"}
 	 *
 	 * @param p - a String representing a function with brackets.
@@ -263,15 +263,18 @@ public class Ex1
 	 */
 	public static String[] expressionOrganizer(String p)
 	{
+		//TODO: add an expression expander (make sure that regular values with exponents get calculated as well)
+
 		String updatedString = p;
 
-		//finds x chars without ^ to their right and then adds ^1 to them
+		//finds x chars without ^ to their right and then adds ^1 to them (will only occur once at most)
 		Pattern pat = Pattern.compile("x(?!\\^)", Pattern.CASE_INSENSITIVE);
 		Matcher mat = pat.matcher(updatedString);
 		if (mat.find())
 		{
 			updatedString = updatedString.substring(0, mat.end()) + "^1" + updatedString.substring(mat.end());
 		}
+
 
 		//finds x chars without a value before them (i.e. multiplied by 1) and adds one before them
 		pat = Pattern.compile("(?<!\\d)x", Pattern.CASE_INSENSITIVE);
@@ -286,20 +289,44 @@ public class Ex1
 			}
 			break;
 		}
+		//pl(updatedString);
 
-		pl(updatedString);
 
-		//parses the String based on '-' and '+' chars (first char included) into a String list
+		//finds the highest exponent among all the x's.
+		int highestExponent = 0;
+		Pattern exponentPat = Pattern.compile("(?<=x\\^).+?(?=[+-]|$)", Pattern.CASE_INSENSITIVE);
+		mat = exponentPat.matcher(updatedString);
+		while(mat.find())
+		{
+			//pl(mat.group(0));
+			if(Integer.parseInt(mat.group(0)) > highestExponent)
+			{
+				highestExponent = Integer.parseInt(mat.group(0));
+			}
+		}
+		//pl("Highest Exponent: " + highestExponent);
+
+
+		//parses the String based on '-' and '+' chars (first char included) into a pre-built String array according to it's exponent
 		pat = Pattern.compile("(.|[+-]).*?(?=[+-]|$)");
 		mat = pat.matcher(updatedString);
-		List<String> results = new ArrayList<>();
+		String[] results = (new String[highestExponent + 1]);
+		Arrays.fill(results, "0.0");
+		Matcher exponentMat;
 
 		while (mat.find())
 		{
-			results.add(mat.group());
+			//pl("ITEM: " + mat.group());
+			exponentMat = exponentPat.matcher(mat.group());
+			if (exponentMat.find())
+			{
+				results[results.length - 1 - Integer.parseInt(exponentMat.group())] = mat.group();
+				//pl(Integer.parseInt(exponentMat.group()) + "\n");
+				continue;
+			}
+			results[results.length - 1] = mat.group();
 		}
-
-		return results.toArray(new String[0]);
+		return results;
 	}
 
 
@@ -326,7 +353,6 @@ public class Ex1
 
 		int fixedLength = fixedArr.length;
 		ans = new double[fixedLength];
-
 
 
 		//.+?(?=x)

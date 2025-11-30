@@ -134,6 +134,7 @@ class Ex1Test
 	{
 		double[] po_a = Ex1.ZERO;
 		double[] po_b = {0, 1};
+		IO.println(Ex1.poly(po_b));
 		double x1 = -1;
 		double x2 = 2;
 		double a1 = Ex1.area(po_a, po_b, x1, x2, 1);
@@ -141,9 +142,13 @@ class Ex1Test
 		double a3 = Ex1.area(po_a, po_b, x1, x2, 3);
 		double a100 = Ex1.area(po_a, po_b, x1, x2, 100);
 		double area = 2.5;
+		IO.println(area + " " + a1);
 		assertEquals(a1, area, Ex1.EPS);
+		IO.println(area + " " + a2);
 		assertEquals(a2, area, Ex1.EPS);
+		IO.println(area + " " + a3);
 		assertEquals(a3, area, Ex1.EPS);
+		IO.println(area + " " + a100);
 		assertEquals(a100, area, Ex1.EPS);
 	}
 

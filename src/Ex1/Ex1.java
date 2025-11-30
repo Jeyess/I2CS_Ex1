@@ -1,7 +1,9 @@
 package Ex1;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.*;
 
 
@@ -198,7 +200,7 @@ public class Ex1
 			for (int i = poly.length - 1; i > 1; i--)
 			{
 				ans = ans + poly[i] + "x^" + i;
-				if (poly[i - 1] > 0)
+				if (poly[i - 1] >= 0)
 				{
 					ans += "+";
 				}
@@ -209,7 +211,7 @@ public class Ex1
 			  and the last value which doesn't contain an x sign at all
 			 */
 			ans = ans + poly[1] + "x";
-			if (poly[0] > 0)
+			if (poly[0] >= 0)
 			{
 				ans += "+";
 			}
@@ -233,14 +235,29 @@ public class Ex1
 	 * @return an x value (x1<=x<=x2) for which |p1(x) - p2(x)| < eps.
 	 * <p>
 	 * Test Link {@link Ex1Test#testSameValue2()}
+	 *
+	 *
+	 * Deja Vu, I've just been in this place before.
 	 */
 	public static double sameValue(double[] p1, double[] p2, double x1, double x2, double eps)
 	{
-		double ans = x1;
-		/** add you code below
-
-		 /////////////////// */
-		return ans;
+		double x12 = (x1 + x2) / 2;
+		double f1m = f(p1, x12);
+		double f2m = f(p2, x12);
+		if (Math.abs(f1m - f2m) < eps)
+		{
+			return x12;
+		}
+		double f1 = f(p1, x1);
+		double f2 = f(p2, x1);
+		if ((f1m - f2m) * (f1 - f2) <= 0)
+		{
+			return sameValue(p1, p2, x1, x12, eps);
+		}
+		else
+		{
+			return sameValue(p1, p2, x12, x2, eps);
+		}
 	}
 	//</editor-fold>
 
@@ -277,7 +294,7 @@ public class Ex1
 	//</editor-fold>
 
 
-	//<editor-fold desc="area">
+	//<editor-fold desc="area NI">
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an integer representing the number of Trapezoids between the functions (number of samples in on each polynom).
 	 * This function computes an approximation of the area between the polynomial functions within the x-range.
@@ -295,9 +312,97 @@ public class Ex1
 	public static double area(double[] p1, double[] p2, double x1, double x2, int numberOfTrapezoid)
 	{
 		double ans = 0;
-		/** add you code below
+		//possibly there is an issue with creating an additional trapezoid when both polynoms cross each other
+		double segmentLength = (x2 - x1) / numberOfTrapezoid;
+		double[] xxNoIntersections = new double[numberOfTrapezoid + 1];
+		List<Double> xxWithIntersections = new ArrayList<>();
+		List<Integer> intersectionIndexes = new ArrayList<>();
 
-		 /////////////////// */
+		pl("SL: " + segmentLength);
+		for (int i = 0; i <= numberOfTrapezoid; i++)
+		{
+			//pl("i score: " + (x1 + i * segmentLength));
+			xxNoIntersections[i] = x1 + i * segmentLength;
+		}
+
+		//pl(Arrays.toString(xxNoIntersections));
+
+		int j = 0;
+		double f1i, f1ipp, f2i, f2ipp;
+		while (j < xxNoIntersections.length)
+		{
+			xxWithIntersections.add(xxNoIntersections[j]);
+
+
+			f1i = f(p1, x1 + j * segmentLength);
+			f2i = f(p2, x1 + j * segmentLength);
+			f1ipp = f(p1, x1 + (j + 1) * segmentLength);
+			f2ipp = f(p2, x1 + (j + 1) * segmentLength);
+
+			/*
+				Math.signum gives +1.0 is the num is positive, -1.0 if negative and 0.0 if the num is 0
+				As we are only interested in the intersections with the X axis, existing intersections are ignored
+				(the result of num1 - num2 = 1.0 or -1.0, signifies an existing intersection)
+			*/
+			if (Math.abs(Math.signum(f1i) - Math.signum(f1ipp)) == 2.0)
+			{
+				xxWithIntersections.add(root_rec(p1, x1 + j * segmentLength, x1 + (j + 1) * segmentLength, EPS));
+				intersectionIndexes.add(xxWithIntersections.size() - 1);
+			}
+
+			if (Math.abs(Math.signum(f2i) - Math.signum(f2ipp)) == 2.0)
+			{
+				xxWithIntersections.add(root_rec(p2, x1 + j * segmentLength, x1 + (j + 1) * segmentLength, EPS));
+				intersectionIndexes.add(xxWithIntersections.size() - 1);
+			}
+
+			if (xxNoIntersections[j] == 0.0)
+			{
+				intersectionIndexes.add(j);
+			}
+
+
+			/*
+				The following section looks for intersections of functions (using the same principles as shown above)
+				But it also checks for existing matches
+			 */
+			pl(j + " Intes: " + intersectionIndexes.contains(j + 1) + " " + intersectionIndexes);
+			if (!intersectionIndexes.contains(j + 1) && (f1i - f2i) * (f1ipp - f2ipp) <= 0)
+			{
+				xxWithIntersections.add(sameValue(p1, p2, x1 + j * segmentLength, x1 + (j + 1) * segmentLength, EPS));
+				intersectionIndexes.add(xxWithIntersections.size() - 1);
+			}
+
+			j++;
+		}
+
+		pl("With: " + xxWithIntersections + " InterInd: " + intersectionIndexes);
+
+		double base1, base2, trapSize;
+		for(int i = 0; i < xxWithIntersections.size() - 1; i++)
+		{
+			pl("this item: " + xxWithIntersections.get(i));
+			//looks forward to see of there's an intersection currently or ahead to calculate it differently
+			if (intersectionIndexes.contains(i))
+			{
+				double height = Math.abs(xxWithIntersections.get(i) - xxWithIntersections.get(i + 1));
+				ans += Math.abs(f(p1, xxWithIntersections.get(i + 1)) - f(p2, xxWithIntersections.get(i + 1))) * height / 2;
+				continue;
+			}
+			else if (intersectionIndexes.contains(i + 1))
+			{
+				double height = Math.abs(xxWithIntersections.get(i) - xxWithIntersections.get(i + 1));
+				ans += Math.abs(f(p1, xxWithIntersections.get(i)) - f(p2, xxWithIntersections.get(i))) * height / 2;
+				continue;
+			}
+
+			base1 = Math.abs(f(p1, xxWithIntersections.get(i)) - f(p2, xxWithIntersections.get(i)));
+			base2 = Math.abs(f(p1, xxWithIntersections.get(i + 1)) - f(p2, xxWithIntersections.get(i + 1)));
+			trapSize = ((base2 + base1) / 2) * segmentLength;
+			pl("tS: " + trapSize);
+			ans += trapSize;
+		}
+
 		return ans;
 	}
 	//</editor-fold>

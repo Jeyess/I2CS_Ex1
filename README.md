@@ -60,13 +60,19 @@ Returns a polynomial as an array.
 <br><br>
 
 
-<h3>add(double[] p1, double[] p2):</h3>
-Takes
-Returns
+<h3>add(double[] p1, double[] p2)</h3>
+Takes 2 polynomials.
+Returns the sum of them as a new polynomial.
 <br><br>
 
 
-<h3>:</h3>
-Takes
-Returns
+<h3>mul(double[] p1, double[] p2)</h3>
+Takes 2 polynomials.
+Returns the product of them as a new polynomial.
+<br><br>
+
+
+<h3>derivative(double[] po)</h3>
+Takes a polynomial.
+Returns the derivative of said polynomial, as a new polynomial.
 <br><br>

@@ -63,8 +63,29 @@ class Ex1Test
 	//</editor-fold>
 
 
-	//<editor-fold desc="polynomFromPoints Tests MT">
+	//<editor-fold desc="polynomFromPoints Tests">
+	@Test
+	/**
+	 * Tests the length function
+	 */
+	public void testPolynomFromPoints()
+	{
+		double[] xx = new double[3],
+				 yy = new double[3],
+				 ans = po3.clone();
+		for (int i = 0; i < 3; i++)
+		{
+			xx[i] = i;
+			yy[i] = Ex1.f(po4, i);
+		}
+		ans = Ex1.polynomFromPoints(xx, yy);
+		//IO.println(Arrays.toString(ans) + "\n" + Arrays.toString(po4));
 
+		for (int i = 0; i < 3; i++)
+		{
+			assertEquals(po4[i], ans[i], Ex1.EPS);
+		}
+	}
 	//</editor-fold>
 
 
@@ -90,7 +111,17 @@ class Ex1Test
 	//</editor-fold>
 
 
-	//<editor-fold desc="poly Tests MT">
+	//<editor-fold desc="poly Tests">
+	@Test
+	/**
+	 * Tests the length function
+	 */
+	public void testPoly()
+	{
+		String ans = Ex1.poly(po3);
+		//IO.println(ans);
+		assertEquals("0.02x^4-0.02x^3-0.7x^2+1.0x+2.0", ans);
+	}
 	//</editor-fold>
 
 
@@ -109,7 +140,16 @@ class Ex1Test
 	//</editor-fold>
 
 
-	//<editor-fold desc="length Tests MT">
+	//<editor-fold desc="length Tests">
+	@Test
+	/**
+	 * Test the length function
+	 */
+	public void testLength()
+	{
+		double ans = Ex1.length(po3, -4, 15, 42);
+		assertEquals(822.36441, ans, 0.1);
+	}
 	//</editor-fold>
 
 

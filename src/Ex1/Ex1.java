@@ -107,7 +107,7 @@ public class Ex1
 	 * @param yy - y positions array
 	 * @return an array of doubles representing the coefficients of the polynom.
 	 * <p>
-	 * Test Link {@link Ex1Test}
+	 * Test Link {@link Ex1Test#testPolynomFromPoints()}
 	 *
 	 * 	   double denom = (x1 - x2) * (x1 - xx[2]) * (x2 - xx[2]);
 	 *     double A     = (xx[2] * (yy[1] - yy[0]) + x2 * (yy[0] - yy[2]) + x1 * (yy[2] - yy[1])) / denom;
@@ -186,7 +186,7 @@ public class Ex1
 	 * @param poly - the polynomial function represented as an array of doubles
 	 * @return String representing the polynomial function:
 	 * <p>
-	 * Test Link {@link Ex1Test}
+	 * Test Link {@link Ex1Test#testPoly()}
 	 */
 	public static String poly(double[] poly)
 	{
@@ -276,7 +276,7 @@ public class Ex1
 	 * @param numberOfSegments - (A positive integer value (1,2,...).
 	 * @return the length approximation of the function between f(x1) and f(x2).
 	 * <p>
-	 * Test Link {@link Ex1Test}
+	 * Test Link {@link Ex1Test#testLength()}
 	 */
 	public static double length(double[] p, double x1, double x2, int numberOfSegments)
 	{
@@ -294,7 +294,7 @@ public class Ex1
 	//</editor-fold>
 
 
-	//<editor-fold desc="area NI">
+	//<editor-fold desc="area">
 	/**
 	 * Given two polynomial functions (p1,p2), a range [x1,x2] and an integer representing the number of Trapezoids between the functions (number of samples in on each polynom).
 	 * This function computes an approximation of the area between the polynomial functions within the x-range.
@@ -587,7 +587,7 @@ public class Ex1
 	//</editor-fold>
 
 
-	//<editor-fold desc="mul NC">
+	//<editor-fold desc="mul">
 	/**
 	 * This function computes the polynomial function which is the multiplication of two polynoms (p1,p2)
 	 *
